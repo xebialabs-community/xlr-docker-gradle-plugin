@@ -1,7 +1,3 @@
-# Preface #
-
-This document describes the functionality provided by the xlr docker gradle plugin.
-
 # CI status #
 
 [![Build Status][xlr-docker-gradle-travis-image] ][xlr-docker-gradle-travis-url]
