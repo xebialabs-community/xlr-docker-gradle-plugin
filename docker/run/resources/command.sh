@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Copy to plugins
-cp /data/build/lib/*.jar /opt/xlr/server/plugins
+cp /data/build/libs/*.jar /opt/xlr/server/plugins
 
 # Link `ext` folder
 find /data/src/main/resources -maxdepth 1 -mindepth 1 -type d -exec ln -s -f '{}' /opt/xlr/server/ext/ \;
