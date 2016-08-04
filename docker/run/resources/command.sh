@@ -23,7 +23,7 @@ do
     else
       echo "Website is up"
       if [ -f /data/build/resources/test/docker/initialize/initialize_data.sh ]; then
-         ./initialize_data.sh
+         /data/build/resources/test/docker/initialize/initialize_data.sh
          if [ $? -ne 0 ]; then
            exit $?
          fi

@@ -17,8 +17,8 @@ class DockerPlugin implements Plugin<Project> {
         DockerPluginExtension dockerPluginExtension = project.extensions.create("xlrDocker", DockerPluginExtension)
 
         project.afterEvaluate {
-            Task compileTask = createDockerTask(project, COMPILE_DOCKER_TASK_NAME, ["run", "-v", project.getRootDir().absolutePath + ":/data", "xebialabs/xlr_dev_compile:"+dockerPluginExtension.version])
-            Task runTask = createDockerTask(project, RUN_DOCKER_TASK_NAME, ["run", "-p", "5516:5516", "-v", project.getRootDir().absolutePath + ":/data", "-v", System.getProperty("user.home") + "/xl-licenses:/license", "xebialabs/xlr_dev_run:"+dockerPluginExtension.version])
+            Task compileTask = createDockerTask(project, COMPILE_DOCKER_TASK_NAME, ["run", "-v", project.getRootDir().absolutePath + ":/data",  "-v", System.getProperty("user.home") + "/.gradle:/.gradle", "xebialabs/xlr_dev_compile:"+dockerPluginExtension.version])
+            Task runTask = createDockerTask(project, RUN_DOCKER_TASK_NAME, ["run", "-p", "5516:5516", "-v", project.getRootDir().absolutePath + ":/data", "-v", System.getProperty("user.home") + "/xl-licenses:/license",  "-v", System.getProperty("user.home") + "/.gradle:/.gradle", "xebialabs/xlr_dev_run:"+dockerPluginExtension.version])
             runTask.dependsOn compileTask
         }
     }
