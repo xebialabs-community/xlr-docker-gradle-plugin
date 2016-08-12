@@ -7,7 +7,6 @@ RUN apt-get update && apt-get install -y openjdk-8-jdk
 ADD resources/command.sh /opt/xlr/command.sh
 VOLUME /data
 VOLUME /root/.gradle
-RUN cp /data/build/downloads/plugins/* /opt/xlr/server/plugins
 WORKDIR /data
 
 CMD ["sh","-x","/opt/xlr/command.sh"]

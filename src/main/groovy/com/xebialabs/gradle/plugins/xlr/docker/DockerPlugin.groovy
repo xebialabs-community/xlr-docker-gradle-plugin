@@ -22,14 +22,16 @@ class DockerPlugin implements Plugin<Project> {
         project.apply plugin: "base"
         project.apply plugin: 'de.undercouch.download'
 
-        DockerPluginExtension dockerPluginExtension = project.extensions.create("xlrDocker", DockerPluginExtension)
+        DockerPluginExtension dockerPluginExtension = project.extensions.create("xlrDocker", DockerPluginExtension, project)
         Task downloadTasks = defineDownloadTasks(project, dockerPluginExtension)
 
         project.afterEvaluate {
             Task compileTask = createDockerTask(project, COMPILE_DOCKER_TASK_NAME, ["run", "-v", project.getRootDir().absolutePath + ":/data",  "-v", System.getProperty("user.home") + "/.xlgradle:/root/.gradle", "xebialabs/xlr_dev_compile:"+dockerPluginExtension.version])
             Task runTask = createDockerTask(project, RUN_DOCKER_TASK_NAME, ["run", "-p", "5516:5516", "-v", project.getRootDir().absolutePath + ":/data", "-v", System.getProperty("user.home") + "/xl-licenses:/license",  "xebialabs/xlr_dev_run:"+dockerPluginExtension.version])
             runTask.dependsOn compileTask
-            compileTask.dependsOn downloadTasks
+            if (downloadTasks != null) {
+                compileTask.dependsOn downloadTasks
+            }
         }
 
         createCleanDownloadCacheTask(project)

@@ -1,8 +1,27 @@
 package com.xebialabs.gradle.plugins.xlr.docker
 
+import org.gradle.api.Project
+
+
 class DockerPluginExtension {
     String version;
     List<Download> downloads
+
+    DockerPluginExtension(Project project) {
+        this.downloads = new ArrayList<Download>()
+    }
+
+    Download download(String name, String user, String password, Closure closure) {
+        Download download = new Download(name, user, password, closure)
+        downloads.add(download)
+        return download
+    }
+
+    Download download(String name, Closure closure) {
+        Download download = new Download(name, closure)
+        downloads.add(download)
+        return download
+    }
 }
 
 class Download {

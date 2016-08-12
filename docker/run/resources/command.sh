@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Copy downloads into 'plugins'
+if [ -d "/data/build/downloads/plugins" ]; then
+    cp /data/build/downloads/plugins/* /opt/xlr/server/plugins
+fi
+
 # Copy to plugins
 cp /data/build/libs/*.jar /opt/xlr/server/plugins
 
