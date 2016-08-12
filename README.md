@@ -41,10 +41,10 @@ For the latest version of the plugin have a look at:
 You can make use of the following gradle tasks
 
 * `compileDocker`
-    * `version`: specifies which version of the XLR image to use. Default: 5.0.1.8
+    * `version`: specifies which version of the XLR image to use.
     * `download`: Specifies any additional plugins to be downloaded.
 * `runDocker`
-    * `version`: specifies which version of the XLR image to use. Default: 5.0.1.8
+    * `version`: specifies which version of the XLR image to use.
     * `download`: Specifies any additional plugins to be downloaded.
     * `initialize_data.sh`: If your project has a file `src/test/resources/docker/initialize/initialize_data.sh`, this will be run after startup. This allows you to create some dummy CI's for testing.
     * The `src/main/resources` folder will be linked into the XLR `ext` folder (so you don't have to restart on script changes)
