@@ -6,18 +6,22 @@ import org.gradle.api.Project
 class DockerPluginExtension {
     String version;
     List<Download> downloads
+    Project project
 
     DockerPluginExtension(Project project) {
+        this.project = project
         this.downloads = new ArrayList<Download>()
     }
 
     Download download(String name, String user, String password, Closure closure) {
+        println "Adding download section $name with user $user"
         Download download = new Download(name, user, password, closure)
         downloads.add(download)
         return download
     }
 
     Download download(String name, Closure closure) {
+        println "Adding download section $name"
         Download download = new Download(name, closure)
         downloads.add(download)
         return download

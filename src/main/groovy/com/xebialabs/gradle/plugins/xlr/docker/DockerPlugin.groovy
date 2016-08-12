@@ -23,15 +23,12 @@ class DockerPlugin implements Plugin<Project> {
         project.apply plugin: 'de.undercouch.download'
 
         DockerPluginExtension dockerPluginExtension = project.extensions.create("xlrDocker", DockerPluginExtension, project)
-        Task downloadTasks = defineDownloadTasks(project, dockerPluginExtension)
 
         project.afterEvaluate {
+            defineDownloadTasks(project, dockerPluginExtension)
             Task compileTask = createDockerTask(project, COMPILE_DOCKER_TASK_NAME, ["run", "-v", project.getRootDir().absolutePath + ":/data",  "-v", System.getProperty("user.home") + "/.xlgradle:/root/.gradle", "xebialabs/xlr_dev_compile:"+dockerPluginExtension.version])
             Task runTask = createDockerTask(project, RUN_DOCKER_TASK_NAME, ["run", "-p", "5516:5516", "-v", project.getRootDir().absolutePath + ":/data", "-v", System.getProperty("user.home") + "/xl-licenses:/license",  "xebialabs/xlr_dev_run:"+dockerPluginExtension.version])
             runTask.dependsOn compileTask
-            if (downloadTasks != null) {
-                compileTask.dependsOn downloadTasks
-            }
         }
 
         createCleanDownloadCacheTask(project)
@@ -74,11 +71,11 @@ class DockerPlugin implements Plugin<Project> {
         }
 
         if (firstDownloadTask != null) {
-            def copyDownloadsTask = project.task("${COPY_DOWNLOADS_TASK_NAME}_${project.name}", type: Copy).configure {
+            def copyDownloadsTask = project.task("${COPY_DOWNLOADS_TASK_NAME}", type: Copy).configure {
                 from('src') {
                     include 'downloads/**/*'
                 }
-                into "$project.buildDir/downloads"
+                into "$project.buildDir"
             }
 
             copyDownloadsTask.dependsOn firstDownloadTask

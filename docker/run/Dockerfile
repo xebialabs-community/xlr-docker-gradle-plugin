@@ -1,4 +1,4 @@
-FROM xebialabs/xlr_dev_compile:5.0.1.6
+FROM xebialabs/xlr_dev_compile:5.0.1.9
 
 MAINTAINER Joris De Winne <jdewinne@xebialabs.com>
 ENV REFRESHED_AT 2016-08-12
