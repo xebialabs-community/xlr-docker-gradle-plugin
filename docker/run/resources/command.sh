@@ -32,6 +32,8 @@ do
          if [ $? -ne 0 ]; then
            exit $?
          fi
+         sleep 4
+         exit
       fi
     fi
   else

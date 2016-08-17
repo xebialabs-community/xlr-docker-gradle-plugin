@@ -28,7 +28,7 @@ Define on top of the `build.gradle` file:
 
 ```
 plugins {
-  id "com.xebialabs.xlr.docker" version "1.1.10"
+  id "com.xebialabs.xlr.docker" version "1.1.11"
 }
 ```
 
