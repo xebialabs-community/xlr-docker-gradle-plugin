@@ -1,7 +1,7 @@
-FROM xebialabs/xlr_dev_compile:5.0.1.9
+FROM xebialabs/xlr_dev_compile:5.0.1.10
 
 MAINTAINER Joris De Winne <jdewinne@xebialabs.com>
-ENV REFRESHED_AT 2016-08-12
+ENV REFRESHED_AT 2016-08-16
 
 ADD resources/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ADD resources/command.sh /opt/xlr/command.sh

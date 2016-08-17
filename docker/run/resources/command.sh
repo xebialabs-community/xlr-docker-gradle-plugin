@@ -32,9 +32,9 @@ do
          if [ $? -ne 0 ]; then
            exit $?
          fi
-         sleep 4
-         exit
       fi
+      sleep 4
+      exit
     fi
   else
     echo "Timeout exceeded...giving up waiting for website"
