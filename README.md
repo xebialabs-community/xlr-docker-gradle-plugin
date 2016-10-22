@@ -53,7 +53,7 @@ You can make use of the following gradle tasks
 
 ```
 xlrDocker {
-  version = '5.0.1.10'
+  version = '5.0.1.11'
   download("xlr_community_plugins") {
     src(["https://github.com/xebialabs-community/xlr-xldeploy-plugin/releases/download/v2.1.5/xlr-xldeploy-plugin-2.1.5.jar",
          "https://github.com/xebialabs-community/xlr-xltestview-plugin/releases/download/v2.1.1/xlr-xltestview-plugin-2.1.1.jar"])
