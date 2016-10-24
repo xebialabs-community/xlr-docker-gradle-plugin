@@ -28,7 +28,7 @@ Define on top of the `build.gradle` file:
 
 ```
 plugins {
-  id "com.xebialabs.xlr.docker" version "1.1.12"
+  id "com.xebialabs.xlr.docker" version "1.2.0"
 }
 ```
 
@@ -41,10 +41,11 @@ For the latest version of the plugin have a look at:
 You can make use of the following gradle tasks
 
 * `compileDocker`
-    * `version`: specifies which version of the XLR image to use.
+    * `compileVersion`: specifies which version of the [XLR image](https://hub.docker.com/r/xebialabs/xlr_dev_compile/tags/) to use.
     * `download`: Specifies any additional plugins to be downloaded.
 * `runDocker`
-    * `version`: specifies which version of the XLR image to use.
+    * `compileVersion`: specifies which version of the [XLR compile image](https://hub.docker.com/r/xebialabs/xlr_dev_compile/tags/) to use.
+    * `runVersion`: specifies which version of the [XLR run image](https://hub.docker.com/r/xebialabs/xlr_dev_run/tags/) to use.
     * `download`: Specifies any additional plugins to be downloaded.
     * `initialize_data.sh`: If your project has a file `src/test/resources/docker/initialize/initialize_data.sh`, this will be run after startup. This allows you to create some dummy CI's for testing.
     * The `src/main/resources` folder will be linked into the XLR `ext` folder (so you don't have to restart on script changes)
@@ -53,7 +54,8 @@ You can make use of the following gradle tasks
 
 ```
 xlrDocker {
-  version = '5.0.1.11'
+  compileVersion = 'v5.0.1.11'
+  runVersion = 'v5.0.1.11'
   download("xlr_community_plugins") {
     src(["https://github.com/xebialabs-community/xlr-xldeploy-plugin/releases/download/v2.1.5/xlr-xldeploy-plugin-2.1.5.jar",
          "https://github.com/xebialabs-community/xlr-xltestview-plugin/releases/download/v2.1.1/xlr-xltestview-plugin-2.1.1.jar"])

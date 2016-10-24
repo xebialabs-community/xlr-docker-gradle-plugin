@@ -4,7 +4,8 @@ import org.gradle.api.Project
 
 
 class DockerPluginExtension {
-    String version;
+    String compileVersion;
+    String runVersion;
     List<Download> downloads
     Project project
 
