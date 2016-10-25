@@ -15,6 +15,10 @@ class DockerPlugin implements Plugin<Project> {
     public static final String COPY_DOWNLOADS_TASK_NAME = "copyDownloadResources"
     public static final String CLEAN_DOWNLOAD_CACHE_TASK_NAME = "cleanDownloadCache"
     public static final String DOWNLOAD_RESOURCES_TASK_NAME = "downloadResources"
+    public static final String STOP_CONTAINERS_TASK_NAME = "stopContainers"
+    public static final String START_DOCKER_COMPOSE_NAME = "runDockerCompose"
+    public static final String STOP_DOCKER_COMPOSE_TASK_NAME = "stopDockerCompose"
+
 
     @Override
     void apply(Project project) {
@@ -29,6 +33,13 @@ class DockerPlugin implements Plugin<Project> {
             Task compileTask = createDockerTask(project, COMPILE_DOCKER_TASK_NAME, ["run", "-v", project.getRootDir().absolutePath + ":/data",  "-v", System.getProperty("user.home") + "/.xlgradle:/root/.gradle", "xebialabs/xlr_dev_compile:"+dockerPluginExtension.compileVersion])
             Task runTask = createDockerTask(project, RUN_DOCKER_TASK_NAME, ["run", "-p", "5516:5516", "-v", project.getRootDir().absolutePath + ":/data", "-v", System.getProperty("user.home") + "/xl-licenses:/license",  "xebialabs/xlr_dev_run:"+dockerPluginExtension.runVersion])
             runTask.dependsOn compileTask
+
+            if (project.file("src/test/resources/docker/docker-compose.yml").exists()) {
+                def stopTask = createDockerComposeTask(project, STOP_CONTAINERS_TASK_NAME, ["stop"], dockerPluginExtension)
+                def stopDockerComposeTask = createDockerComposeTask(project, STOP_DOCKER_COMPOSE_TASK_NAME, ["rm", "--force"], dockerPluginExtension)
+                stopDockerComposeTask.dependsOn stopTask
+                createDockerComposeTask(project, START_DOCKER_COMPOSE_NAME, ["up", "-d", "--no-recreate"], dockerPluginExtension)
+            }
         }
 
         createCleanDownloadCacheTask(project)
@@ -82,6 +93,14 @@ class DockerPlugin implements Plugin<Project> {
             firstDownloadTask = copyDownloadsTask
         }
         firstDownloadTask
+    }
+
+    private Task createDockerComposeTask(Project project, String taskName, Iterable<?> taskArgs, DockerPluginExtension dockerPluginExtension) {
+        return project.tasks.create(taskName, Exec).configure {
+            executable "docker-compose"
+            args(taskArgs)
+            workingDir "${project.file("src/test/resources/docker").absolutePath}"
+        }
     }
 
 }

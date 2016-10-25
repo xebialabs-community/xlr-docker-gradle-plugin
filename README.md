@@ -49,6 +49,9 @@ You can make use of the following gradle tasks
     * `download`: Specifies any additional plugins to be downloaded.
     * `initialize_data.sh`: If your project has a file `src/test/resources/docker/initialize/initialize_data.sh`, this will be run after startup. This allows you to create some dummy CI's for testing.
     * The `src/main/resources` folder will be linked into the XLR `ext` folder (so you don't have to restart on script changes)
+* `runDockerCompose`
+    * A `docker-compose.yml` should be present under `src/test/resources/docker`
+* `stopDockerCompose`
 
 # Example #
 
