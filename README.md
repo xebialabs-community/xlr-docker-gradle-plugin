@@ -28,7 +28,7 @@ Define on top of the `build.gradle` file:
 
 ```
 plugins {
-  id "com.xebialabs.xlr.docker" version "1.2.0"
+  id "com.xebialabs.xlr.docker" version "1.2.1"
 }
 ```
 
@@ -49,8 +49,10 @@ You can make use of the following gradle tasks
     * `download`: Specifies any additional plugins to be downloaded.
     * `initialize_data.sh`: If your project has a file `src/test/resources/docker/initialize/initialize_data.sh`, this will be run after startup. This allows you to create some dummy CI's for testing.
     * The `src/main/resources` folder will be linked into the XLR `ext` folder (so you don't have to restart on script changes)
+    * This task depends on `compileDocker`
 * `runDockerCompose`
     * A `docker-compose.yml` should be present under `src/test/resources/docker`
+    * This task depends on `compileDocker`
 * `stopDockerCompose`
 
 # Example #

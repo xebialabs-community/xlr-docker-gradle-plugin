@@ -38,7 +38,8 @@ class DockerPlugin implements Plugin<Project> {
                 def stopTask = createDockerComposeTask(project, STOP_CONTAINERS_TASK_NAME, ["stop"], dockerPluginExtension)
                 def stopDockerComposeTask = createDockerComposeTask(project, STOP_DOCKER_COMPOSE_TASK_NAME, ["rm", "--force"], dockerPluginExtension)
                 stopDockerComposeTask.dependsOn stopTask
-                createDockerComposeTask(project, START_DOCKER_COMPOSE_NAME, ["up", "-d", "--no-recreate"], dockerPluginExtension)
+                def runDockerComposeTask = createDockerComposeTask(project, START_DOCKER_COMPOSE_NAME, ["up", "-d", "--no-recreate"], dockerPluginExtension)
+                runDockerComposeTask.dependsOn compileTask
             }
         }
 
