@@ -1,3 +1,7 @@
+# DEPRECATED #
+
+Use the [xl-docker-gradle-plugin](https://github.com/xebialabs-community/xl-docker-gradle-plugin)
+
 # CI status #
 
 [![Build Status][xlr-docker-gradle-travis-image] ][xlr-docker-gradle-travis-url]
